@@ -1,0 +1,24 @@
+services:
+  db:
+    image: mariadb:10.11
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: foobarhogepiyo
+      ##エラー出てる可能性
+      MYSQL_DATABASE: message_bord
+      MYSQL_USER: spring
+      MYSQL_PASSWORD: boot
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-mariadb.d
+  redis:
+    image: redis:7.2
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/datd
+
+volumes:
+  db-data:
+  redis-data:
