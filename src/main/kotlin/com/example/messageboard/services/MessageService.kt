@@ -5,6 +5,7 @@ import com.example.messageboard.repositories.MessageRepository
 import org.springframework.stereotype.Service
 import com.example.messageboard.models.Thread
 import com.example.messageboard.models.User
+import org.aspectj.bridge.Message
 import java.time.LocalDateTime
 
 @Service

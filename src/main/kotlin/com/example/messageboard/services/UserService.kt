@@ -1,6 +1,6 @@
 package com.example.messageboard.services
 
-import com.example.messageboard.models.User
+import com.example.messageboard.models.Users
 import com.example.messageboard.repositories.UserRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -23,16 +23,16 @@ class UserService(
         )
     }
 
-    fun registerUser(viewName: String, email: String, password: String): User {
+    fun registerUser(viewName: String, email: String, password: String): Users {
         if (userRepository.findByEmail(email) != null) {
             throw IllegalArgumentException("Email already registerd")
         }
         val hashedPassword = passwordEncoder.encode(password)
-        val user = User(viewName = viewName, email = email, password = hashedPassword)
+        val user = Users(viewName = viewName, email = email, password = hashedPassword)
         return userRepository.save(user)
     }
 
-    fun getUserByEmail(email: String): User? {
+    fun getUserByEmail(email: String): Users? {
         return userRepository.findByEmail(email)
     }
 }
