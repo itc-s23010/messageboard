@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/user")
 @CrossOrigin
-class UserController(
+class UserController<MessageBoardUserDetails>(
     private val userService: UserService,
 ) {
 
     @PostMapping("/register")
     fun register(@RequestBody request: PostUserRegisterRequest) {
         run {
-            userService.register(request.viewName, request.email, request.password)
+            userService.registerUser(request.viewName, request.email, request.password)
         }
     }
 //    @PostMapping("/register")

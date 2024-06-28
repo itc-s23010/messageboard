@@ -5,27 +5,21 @@ import com.example.messageboard.infrastructurs.dao.ThreadsTable.title
 import com.example.messageboard.infrastructurs.dao.ThreadsTable.updatedAt
 import com.example.messageboard.services.ThreadService
 import org.springframework.web.bind.annotation.*
-import com.example.messageboard.models.Thread
 import com.example.messageboard.services.UserService
-import com.example.messageboard.util.getCurrentUserEmail
 import org.example.messageboard.MessageBoardApplication
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
-import kotlin.concurrent.thread
 
 
 @RestController
 @RequestMapping("/threads")
 @CrossOrigin
-class ThreadController(
+class ThreadController<MessageBoardUserDetails>(
     private val threadService: ThreadService,
     private val userService: UserService
 ) {
     @GetMapping("/list")
     fun getList(): GetThreadListResponse {
-        val threadList = service.getList().map(::ThreadInfo)
+        val threadList = threadService.getThreads().map(::ThreadInfo)
         return GetThreadListResponse(threadList)
     }
 
@@ -53,7 +47,7 @@ class ThreadController(
 //    }
 
     @PutMapping("/update/{id}")
-    fun update(
+    fun <MessageBoardUserDetails> update(
         @PathVariable id: Long,
         @RequestBody body: PutThreadUpdateRequest,
         @AuthenticationPrincipal user: MessageBoardUserDetails
@@ -73,4 +67,3 @@ class ThreadController(
         }
     }
 }
-data class ThreadDto(val title: String)

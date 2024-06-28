@@ -5,6 +5,7 @@ import com.example.messageboard.form.MessageUpdateResponse
 import com.example.messageboard.infrastructurs.dao.MessagesTables.message
 import com.example.messageboard.infrastructurs.dao.MessagesTables.updatedAt
 import com.example.messageboard.models.User
+import com.example.messageboard.models.Users
 import com.example.messageboard.services.MessageService
 import com.example.messageboard.services.ThreadService
 import com.example.messageboard.services.UserService
@@ -70,7 +71,7 @@ class MessageController(
         val updatedMessage = messageService.updateMessage(threadId, messageDto.message, user.id)
         return updatedMessage.run {
             MessageUpdateResponse(
-                id = id, threadId = thread.id, message = message, updatedAt = updatedAt
+                id = threadId, threadId = threadId, message = message, updatedAt = updatedAt
             )
         }
     }
@@ -87,4 +88,3 @@ class MessageController(
     }
 
 }
-data class MessageDto(val message: String)
